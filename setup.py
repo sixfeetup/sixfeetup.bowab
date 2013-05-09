@@ -35,6 +35,10 @@ setup(name='sixfeetup.bowab',
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'pyramid',
+          'deform',
+          'colander',
+          'requests',
           # -*- Extra requirements: -*-
       ],
       entry_points="""
