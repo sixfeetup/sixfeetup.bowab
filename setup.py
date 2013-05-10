@@ -39,6 +39,8 @@ setup(name='sixfeetup.bowab',
           'deform',
           'colander',
           'requests',
+          'SQLAlchemy',
+          'psycopg2',
           # -*- Extra requirements: -*-
       ],
       tests_require=['nose', 'coverage'],
@@ -46,5 +48,7 @@ setup(name='sixfeetup.bowab',
       extras_require={'test': ['coverage', 'mock']},
       entry_points="""
       # -*- Entry points: -*-
+      [console_scripts]
+      initialize_db = sixfeetup.bowab.scripts.initializedb:main
       """,
       )
