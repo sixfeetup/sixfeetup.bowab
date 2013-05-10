@@ -41,6 +41,9 @@ setup(name='sixfeetup.bowab',
           'requests',
           # -*- Extra requirements: -*-
       ],
+      tests_require=['nose', 'coverage'],
+      test_suit="nose.collector",
+      extras_require={'test': ['coverage', 'mock']},
       entry_points="""
       # -*- Entry points: -*-
       """,
