@@ -56,7 +56,7 @@ Then, create a subclass within your project that inherits from `sixfeetup.bowab.
 Then, in you `paster.ini` file, include the following::
 
 .. code-block: ini
-    bowab:api_class = my_project.MyTemplateAPI
+    bowab.api_class = my_project.MyTemplateAPI
 
-Make sure the `bowab:api_class` variable points to the full dotted path of your custom class. This class will
+Make sure the `bowab.api_class` variable points to the full dotted path of your custom class. This class will
 then be registered by the `sixfeetup.bowab` include process.
