@@ -10,6 +10,7 @@ class TemplateAPI(object):
         if not request:
             return
         self.request = request
+        self.rendering_val = rendering_val
         self.init_forms(rendering_val)
 
     @property
