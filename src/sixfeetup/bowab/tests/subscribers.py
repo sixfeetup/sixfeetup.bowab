@@ -63,3 +63,12 @@ class TestRegisterAPI(TestCase):
             event = TestRegisterAPI._generate_event(rendering_val=val)
             register_api(event)
             self.assertEqual(event['api'].rendering_val, {})
+
+    def test_none_request(self):
+        with patch('sixfeetup.bowab.subscribers.get_api_class') as mocked:
+            mocked.return_value = TemplateAPI
+            val = Response()
+            event = TestRegisterAPI._generate_event(rendering_val=val)
+            event.request = None
+            register_api(event)
+            self.assertTrue(not 'api' not in event)

@@ -26,6 +26,8 @@ def register_api(event):
     into the environment, without having to explicitly add it in each
     view function.
     """
+    if event['request'] is None:
+        return
     api_class = get_api_class(event['request'].registry)
     if isinstance(event.rendering_val, Response) or \
        isinstance(event.rendering_val, basestring):
