@@ -25,7 +25,7 @@ class TestGetAPIClass(TestCase):
 
     def test_different_api_class(self):
         registry = Mock()
-        registry.settings = {'api_class': 'sixfeetup.bowab.tests.subscribers.Dummy'}
+        registry.settings = {'bowab.api_class': 'sixfeetup.bowab.tests.subscribers.Dummy'}
         api_class = get_api_class(registry)
         self.assertEqual(api_class, Dummy)
 
