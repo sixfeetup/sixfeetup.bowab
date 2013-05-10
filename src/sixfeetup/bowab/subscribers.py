@@ -7,12 +7,14 @@ def get_api_class(registry):
     """Looks up a the API class to use within a Pyramid configuration registry.
     It will return the TemplateAPI class if none is found.
     """
-    api_class_path = registry.get('api_class', None)
-    resolver = DottedNameResolver()
-    try:
-        api_class = resolver.resolve(api_class_path)
-    except ValueError:
-        api_class = TemplateAPI
+    api_class = TemplateAPI
+    if hasattr(registry, 'settings'):
+        api_class_path = registry.settings.get('api_class', None)
+        resolver = DottedNameResolver()
+        try:
+            api_class = resolver.resolve(api_class_path)
+        except ValueError:
+            pass
     return api_class
 
 

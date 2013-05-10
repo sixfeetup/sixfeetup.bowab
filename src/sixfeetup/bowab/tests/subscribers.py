@@ -2,7 +2,7 @@ from unittest import TestCase
 from pyramid.events import BeforeRender
 from pyramid import testing
 from pyramid.response import Response
-from mock import patch
+from mock import Mock, patch
 
 from sixfeetup.bowab.api import TemplateAPI
 from sixfeetup.bowab.subscribers import get_api_class
@@ -18,14 +18,21 @@ class Dummy(object):
 class TestGetAPIClass(TestCase):
 
     def test_no_api_class_defined(self):
-        registry = {}
+        registry = Mock()
+        registry.settings = {}
         api_class = get_api_class(registry)
         self.assertEqual(api_class, TemplateAPI)
 
     def test_different_api_class(self):
-        registry = {'api_class': 'sixfeetup.bowab.tests.subscribers.Dummy'}
+        registry = Mock()
+        registry.settings = {'api_class': 'sixfeetup.bowab.tests.subscribers.Dummy'}
         api_class = get_api_class(registry)
         self.assertEqual(api_class, Dummy)
+
+    def test_none_registry(self):
+        registry = None
+        api_class = get_api_class(registry)
+        self.assertEqual(api_class, TemplateAPI)
 
 
 class TestRegisterAPI(TestCase):
