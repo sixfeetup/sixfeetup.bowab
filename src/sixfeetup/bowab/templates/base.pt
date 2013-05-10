@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:tal="http://xml.zope.org/namespaces/tal">
+    <head>
+        <tal:resources repeat="css_path api.css_resources">
+          <link rel="stylesheet" media="screen" type="text/css"
+                tal:attributes="href python: request.static_url(css_path)" />
+        </tal:resources>
+        <tal:resources repeat="js_path api.js_resources">
+          <script type="text/javascript"
+                  tal:attributes="src python: request.static_url(js_path)"></script>
+        </tal:resources>
+    </head>
+    <body>
+        <div id="body-wrapper" class="container-fluid">
+            <div id="header" class="row-fluid">
+            </div>
+            <div id="content" class="row-fluid">
+                 <h1><metal:content define-slot="page-title" /></h1>
+                 <metal:content define-slot="content" />
+            </div>
+        </div>
+    </body>
+</html>
