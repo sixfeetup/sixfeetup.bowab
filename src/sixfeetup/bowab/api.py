@@ -11,7 +11,6 @@ class TemplateAPI(object):
             return
         self.request = request
         self.init_forms(rendering_val)
-        print "Through init forms"
 
     @property
     def settings(self):
