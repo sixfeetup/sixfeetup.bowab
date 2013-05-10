@@ -1,4 +1,3 @@
-from pyramid.config import aslist
 from pyramid.path import DottedNameResolver
 
 from sqlalchemy import engine_from_config
@@ -18,7 +17,7 @@ def init_sa(config):
     resolver = DottedNameResolver()
     db_session = resolver.maybe_resolve(session_path)
     db_session.configure(bind=engine)
-    model_paths = aslist(settings.get('bowab.models', []))
+    model_paths = config.registry.setdefault('bowab.models', set())
     for emp in model_paths:
         config.scan(emp)
     return db_session

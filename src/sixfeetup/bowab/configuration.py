@@ -24,3 +24,8 @@ def require_csrf(view):
 
 def get_db_session(request):
     return DBSession()
+
+
+def add_models(config, models_paths):
+    models = config.registry.setdefault('bowab.models', set())
+    models.update(models_paths)
