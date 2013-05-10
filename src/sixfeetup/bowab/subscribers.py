@@ -9,12 +9,9 @@ def get_api_class(registry):
     """
     api_class = TemplateAPI
     if hasattr(registry, 'settings'):
-        api_class_path = registry.settings.get('bowab.api_class', None)
+        api_class_path = registry.settings.get('bowab.api_class', api_class)
         resolver = DottedNameResolver()
-        try:
-            api_class = resolver.resolve(api_class_path)
-        except ValueError:
-            pass
+        api_class = resolver.maybe_resolve(api_class_path)
     return api_class
 
 
