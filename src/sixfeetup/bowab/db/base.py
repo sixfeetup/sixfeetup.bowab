@@ -14,10 +14,9 @@ Base = declarative_base()
 def init_sa(config):
     settings = config.registry.settings
     engine = engine_from_config(settings, 'sqlalchemy.')
-    session_path = settings.get('bowab.db_session',
-                                'sixfeetup.bowab.db.base.DBSession')
+    session_path = settings.get('bowab.db_session', DBSession)
     resolver = DottedNameResolver()
-    db_session = resolver.resolve(session_path)
+    db_session = resolver.maybe_resolve(session_path)
     db_session.configure(bind=engine)
     model_paths = aslist(settings.get('bowab.models', []))
     for emp in model_paths:
