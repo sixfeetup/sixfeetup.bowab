@@ -37,7 +37,6 @@ class TemplateAPI(object):
                 'deform:static/%s' % js_path
                 for js_path in resources['js']
             ])
-        print "Ran init_forms"
 
     def is_active_tab(self, route_name):
         if self.request.matched_route and \
