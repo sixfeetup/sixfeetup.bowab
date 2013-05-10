@@ -3,6 +3,8 @@ from functools import wraps
 from pyramid.httpexceptions import HTTPBadRequest
 from pyramid.session import check_csrf_token
 
+from sixfeetup.bowab.db.base import DBSession
+
 
 class CSRFValidationFailure(HTTPBadRequest):
     pass
@@ -18,3 +20,7 @@ def require_csrf(view):
             raise CSRFValidationFailure(msg)
         return view(context, request)
     return wrapped
+
+
+def get_db_session(request):
+    return DBSession()
