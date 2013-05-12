@@ -20,7 +20,7 @@ class RecaptchaWidget(CheckedInputWidget):
         settings = self.request.registry.settings
         self.public_key = settings['bowab.recaptcha_public_key']
         self.private_key = settings['bowab.recaptcha_private_key']
-        self.recaptcha_options = '{%s}' % settings['recaptcha_options']
+        self.recaptcha_options = '{%s}' % settings['bowab.recaptcha_options']
         super(RecaptchaWidget, self).__init__(*args, **kwargs)
 
     def serialize(self, field, cstruct, readonly=False):
