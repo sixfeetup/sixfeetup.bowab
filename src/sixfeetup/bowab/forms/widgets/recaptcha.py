@@ -11,7 +11,7 @@ import requests
 
 
 class RecaptchaWidget(CheckedInputWidget):
-    template = 'widgets/recaptcha'
+    template = 'sixfeetup.bowab:templates/widgets/recaptcha'
     requirements = ()
     url = "https://www.google.com/recaptcha/api/verify"
 
