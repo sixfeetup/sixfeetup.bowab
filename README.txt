@@ -21,7 +21,7 @@ they need to inherit from `sixfeetup.bowab.db.Base`. Then add the following to y
         dotted.python.path.to.models
 
 Using the TemplateAPI
-------------------
+---------------------
 
 If you would like to the included `sixfeetup.bowab.api.TemplateAPI` class as is, you simply need to
 include this in your Pyramid app configuration::
@@ -60,3 +60,10 @@ Then, in you `paster.ini` file, include the following::
 
 Make sure the `bowab.api_class` variable points to the full dotted path of your custom class. This class will
 then be registered by the `sixfeetup.bowab` include process.
+
+Using the Recaptcha Widget
+--------------------------
+
+The Recaptcha widget needs the private and public keys for your Recaptcha account.
+These can be set in your config file using the `bowab.recaptcha_private_key` and
+`bowab.recaptcha_public_key` values, respectively.

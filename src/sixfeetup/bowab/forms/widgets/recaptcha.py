@@ -18,8 +18,8 @@ class RecaptchaWidget(CheckedInputWidget):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request')
         settings = self.request.registry.settings
-        self.public_key = settings['recaptcha_public_key']
-        self.private_key = settings['recaptcha_private_key']
+        self.public_key = settings['bowab.recaptcha_public_key']
+        self.private_key = settings['bowab.recaptcha_private_key']
         self.recaptcha_options = '{%s}' % settings['recaptcha_options']
         super(RecaptchaWidget, self).__init__(*args, **kwargs)
 
