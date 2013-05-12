@@ -5,8 +5,7 @@ from pyramid.config import Configurator
 from pyramid.paster import get_appsettings, setup_logging
 from pyramid.paster import bootstrap
 
-from sixfeetup.bowab.db.base import init_sa
-from sixfeetup.bowab.db.base import Base, DBSession
+from sixfeetup.bowab.db import Base, DBSession, init_sa
 
 
 def usage(argv):
