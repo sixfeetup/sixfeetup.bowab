@@ -5,7 +5,7 @@ from pyramid.config import Configurator
 from pyramid.paster import get_appsettings, setup_logging
 from pyramid.paster import bootstrap
 
-from sixfeetup.bowab.db import Base, DBSession, init_sa
+from sixfeetup.bowab.db import Base, init_sa
 
 
 def usage(argv):
@@ -23,6 +23,7 @@ def main(argv=sys.argv):
     settings = get_appsettings(config_uri)
     config = Configurator(settings=settings)
     db_session = init_sa(config)
-    Base.metadata.create_all(db_session.bind)
+    Base.metadata.bind = db_session.get_bind()
+    Base.metadata.create_all(db_session.get_bind())
 
     return config, db_session

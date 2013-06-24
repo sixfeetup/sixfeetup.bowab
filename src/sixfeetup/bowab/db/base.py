@@ -27,4 +27,4 @@ def get_db_session(request, settings=None):
     session_path = settings.get('bowab.db_session', DBSession)
     resolver = DottedNameResolver()
     db_session = resolver.maybe_resolve(session_path)
-    return db_session()
+    return db_session
