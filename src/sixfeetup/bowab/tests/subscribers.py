@@ -75,3 +75,41 @@ class TestRegisterAPI(TestCase):
             event.request = None
             register_api(event)
             self.assertTrue(not 'api' not in event)
+
+
+class TestGAQ(TestCase):
+    def _setup_api(self, settings=None):
+        if settings is None:
+            settings = {}
+        request = testing.DummyRequest()
+        request.registry = Mock()
+        request.registry.settings = settings
+        api_class = get_api_class(request.registry)
+        api = api_class(request, {})
+        return api
+
+    def test_no_account(self):
+        api = self._setup_api()
+        self.assertTrue(api.gaq is None)
+
+    def _test_option(self, option, struct_key, val, account='foo'):
+        settings = {}
+        if account is not None:
+            settings['gaq.account'] = account
+        settings[option] = val
+        api = self._setup_api(settings)
+        self.assertTrue(api.gaq is not None)
+        self.assertTrue(api.gaq.data_struct[struct_key] == val)
+
+    def test_account(self):
+        self._test_option('gaq.account', '_setAccount', 'foo', None)
+
+    def test_allow_linker(self):
+        self._test_option('gaq.allow_linker', '_setAllowLinker', True)
+
+    def test_domain_name(self):
+        self._test_option('gaq.domain_name', '_setDomainName',
+                          'foo.example.com')
+
+    def test_single_push(self):
+        self._test_option('gaq.single_push', '__singlePush', True)

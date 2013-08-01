@@ -3,6 +3,9 @@
 import datetime
 
 from pyramid.security import authenticated_userid
+from pyramid.settings import asbool
+
+from gaq_hub import GaqHub
 
 
 class TemplateAPI(object):
@@ -12,6 +15,7 @@ class TemplateAPI(object):
         self.request = request
         self.rendering_val = rendering_val
         self.init_forms(rendering_val)
+        self.init_gaq()
 
     @property
     def settings(self):
@@ -51,3 +55,17 @@ class TemplateAPI(object):
         if not userid:
             return ''
         return userid
+
+    def init_gaq(self):
+        if 'gaq.account' in self.settings:
+            self.gaq = GaqHub(self.settings['gaq.account'])
+            if 'gaq.allow_linker' in self.settings:
+                allow_linker = asbool(self.settings['gaq.allow_linker'])
+                self.gaq.setAllowLinker(allow_linker)
+            if 'gaq.domain_name' in self.settings:
+                self.gaq.setDomainName(self.settings['gaq.domain_name'])
+            if 'gaq.single_push' in self.settings:
+                single_push = asbool(self.settings['gaq.single_push'])
+                self.gaq.setSinglePush(single_push)
+        else:
+            self.gaq = None

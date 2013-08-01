@@ -41,6 +41,7 @@ setup(name='sixfeetup.bowab',
           'requests',
           'SQLAlchemy',
           'psycopg2',
+          'gaq_hub',
           # -*- Extra requirements: -*-
       ],
       tests_require=['nose', 'coverage'],

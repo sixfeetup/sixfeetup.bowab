@@ -32,6 +32,28 @@ include this in your Pyramid app configuration::
 This will add an event subscriber to the `pyramid.events.BeforeRender` event. This means that all
 templates will have access to an `api` variable that represents the `TemplateAPI` instance.
 
+Google Analytics
+================
+
+The TemplateAPI class supports extracting Google Analytics settings from the Pyramid settings registry. The following keys are supported:
+
+* gaq.account
+  - Property ID from Google
+* gaq.allow_linker
+  - http://code.google.com/apis/analytics/docs/gaJS/gaJSApiDomainDirectory.html#_gat.GA_Tracker_._setAllowLinker
+* gaq.domain_name
+  - explicit domain name to use
+* gaq.single_push
+  - boolean; use a push per setting, or one single push
+
+To use this in your project, update base.pt to include:
+
+.. code-block: tal
+    <!-- Google Analytics -->
+    <tal:gaq condition="api.gaq">
+        <tal:code replace="structure api.gaq.as_html()" />
+    </tal:gaq>
+
 Customizing the TemplateAPI
 ---------------------------
 
