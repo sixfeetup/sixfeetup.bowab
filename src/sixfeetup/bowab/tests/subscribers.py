@@ -46,7 +46,8 @@ class TestRegisterAPI(TestCase):
         event.rendering_val = rendering_val
         event['request'] = testing.DummyRequest()
         if registry is None:
-            registry = {}
+            registry = Mock()
+            registry.settings = {}
         event['request'].registry = registry
         return event
 
