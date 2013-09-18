@@ -41,6 +41,7 @@ setup(name='sixfeetup.bowab',
           'requests',
           'SQLAlchemy',
           'psycopg2',
+          'alembic',
           'gaq_hub',
           # -*- Extra requirements: -*-
       ],
