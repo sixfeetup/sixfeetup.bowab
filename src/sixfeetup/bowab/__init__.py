@@ -8,6 +8,10 @@ from sixfeetup.bowab.subscribers import register_api
 
 
 def includeme(config):
+    # ensure that bowab static assets will be searched out before deform's
+    config.add_static_view('bowab_static', 'sixfeetup.bowab:static')
+    config.override_asset(to_override='deform:static/',
+                          override_with='sixfeetup.bowab:static/')
     config.add_subscriber(register_api, BeforeRender)
     config.add_directive('add_models', add_models)
     model_paths = aslist(config.registry.settings.setdefault('bowab.models',
