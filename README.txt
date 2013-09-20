@@ -89,3 +89,24 @@ Using the Recaptcha Widget
 The Recaptcha widget needs the private and public keys for your Recaptcha account.
 These can be set in your config file using the `bowab.recaptcha_private_key` and
 `bowab.recaptcha_public_key` values, respectively.
+
+
+Using the SpectrumColorPickerWidget
+-----------------------------------
+
+The spectrum color picker widget can be used to convert text inputs expecting
+'#'-prefixed hexidecimal values to a nice jquery-based color picker input.
+
+If the widget is initialized with a 'default' color value, that value will be
+presented as a pallet swatch to ease returning to default.  If initialized with
+a 'color' value, that will be the initial color displayed.
+
+Forms using the color picker widget will need to use the `colorpicker_registry`
+in order to ensure that the color picker js and css files are found.  Alternatively,
+the resources may be imported and loaded into a custom registry, or into the
+deform `default_resource_registry`.  
+
+If you have more than one color field in a form, and wish to have separate 
+values used for `color` and `default`, import the `build_color_widget` function
+which is suitable for use inside a defered widget generator.  (See 
+`speak_friend.forms.profiles.Domain` for an example).
