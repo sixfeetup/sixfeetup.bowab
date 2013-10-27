@@ -1,3 +1,4 @@
+import codecs
 from json import loads
 
 from colander import SchemaNode
@@ -24,6 +25,12 @@ class CIText(types.TypeDecorator):
     def copy(self):
         return CIText(self.impl.length)
 
+    def process_result_value(self, value, dialect):
+        if value is None:
+            return
+        decoder = codecs.getdecoder(dialect.encoding)
+        return decoder(value)[0]
+
 
 class DottedPath(types.TypeDecorator):
     '''Return the resolved dotted path on the way out.
@@ -32,11 +39,11 @@ class DottedPath(types.TypeDecorator):
     impl = types.UnicodeText
     resolver = DottedNameResolver()
 
-    def process_result_value(self, value, dialect):
-        return self.resolver.resolve(value)
-
     def copy(self):
         return DottedPath(self.impl.length)
+
+    def process_result_value(self, value, dialect):
+        return self.resolver.resolve(value)
 
 
 class JSON(types.TypeDecorator):
@@ -45,6 +52,9 @@ class JSON(types.TypeDecorator):
     '''
 
     impl = types.UnicodeText
+
+    def copy(self):
+        return JSON(self.impl.length)
 
     def process_bind_param(self, value, dialect):
         if isinstance(value, SchemaNode):
@@ -59,9 +69,6 @@ class JSON(types.TypeDecorator):
         if value is None:
             return value
         return loads(value)
-
-    def copy(self):
-        return JSON(self.impl.length)
 
 
 class TSVector(types.TypeDecorator):
