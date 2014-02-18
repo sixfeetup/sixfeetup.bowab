@@ -10,6 +10,7 @@ DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 
 Base = declarative_base()
 
+
 def init_sa(config):
     settings = config.registry.settings
     engine = engine_from_config(settings, 'sqlalchemy.')

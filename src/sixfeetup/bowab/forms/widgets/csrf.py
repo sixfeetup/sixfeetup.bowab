@@ -8,6 +8,7 @@ def deferred_csrf_default(node, kw):
     csrf_token = request.session.get_csrf_token()
     return csrf_token
 
+
 @colander.deferred
 def deferred_csrf_validator(node, kw):
     def validate_csrf(node, value):
@@ -17,10 +18,11 @@ def deferred_csrf_validator(node, kw):
             raise ValueError('Bad CSRF token')
     return validate_csrf
 
+
 class CSRFSchema(colander.MappingSchema):
     csrf_token = colander.SchemaNode(
         colander.String(),
-        default = deferred_csrf_default,
-        validator = deferred_csrf_validator,
-        widget = deform.widget.HiddenWidget(),
+        default=deferred_csrf_default,
+        validator=deferred_csrf_validator,
+        widget=deform.widget.HiddenWidget(),
     )

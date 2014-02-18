@@ -10,10 +10,11 @@ spectrum_resources = {
 
 # set a resource registry that contains resources for the password widget
 colorpicker_registry = ResourceRegistry()
-colorpicker_registry.set_js_resources('colorpicker', 'spectrum-1.1.1',
-                                      'spectrum.js')
-colorpicker_registry.set_css_resources('colorpicker', 'spectrum-1.1.1',
-                                    'spectrum.css')
+colorpicker_registry.set_js_resources(
+    'colorpicker', 'spectrum-1.1.1', 'spectrum.js')
+colorpicker_registry.set_css_resources(
+    'colorpicker', 'spectrum-1.1.1', 'spectrum.css')
+
 
 class SpectrumColorPickerWidget(TextInputWidget):
     requirements = (('colorpicker', 'spectrum-1.1.1'), )
@@ -24,7 +25,7 @@ class SpectrumColorPickerWidget(TextInputWidget):
 
 def build_color_widget(color, default):
     """build a widget by passing in specific settings
-    
+
     this can be used in a deferred widget binding to allow for a variety of
     widgets on a single page with different settings for color and default
     """

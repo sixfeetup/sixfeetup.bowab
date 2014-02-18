@@ -1,6 +1,3 @@
-import json
-
-
 import colander
 from colander import null
 from colander import Invalid
@@ -60,7 +57,7 @@ class RecaptchaWidget(CheckedInputWidget):
         if not valid == 'true':
             if reason == 'incorrect-captcha-sol':
                 reason = "Incorrect solution"
-            raise Invalid(field.schema, reason.replace('\\n', ' ').strip("'") )
+            raise Invalid(field.schema, reason.replace('\\n', ' ').strip("'"))
         return pstruct
 
 
