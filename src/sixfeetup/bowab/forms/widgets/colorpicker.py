@@ -17,7 +17,7 @@ colorpicker_registry.set_css_resources('colorpicker', 'spectrum-1.1.1',
 
 class SpectrumColorPickerWidget(TextInputWidget):
     requirements = (('colorpicker', 'spectrum-1.1.1'), )
-    template = 'sixfeetup.bowab:templates/widgets/colorpicker'
+    template = 'sixfeetup.bowab:templates/widgets/colorpicker.pt'
     color = "#ff0000"
     default = None
 
