@@ -33,14 +33,8 @@ class TemplateAPI(object):
         for form in rendering_val.get('forms', []):
             resources = form.get_widget_resources()
             # XXX: Is the path always going to have this prefix?
-            self.css_resources.extend([
-                'deform:static/%s' % css_path
-                for css_path in resources['css']
-            ])
-            self.js_resources.extend([
-                'deform:static/%s' % js_path
-                for js_path in resources['js']
-            ])
+            self.css_resources.extend(resources['css'])
+            self.js_resources.extend(resources['js'])
 
     def is_active_tab(self, route_name):
         if self.request.matched_route and \
