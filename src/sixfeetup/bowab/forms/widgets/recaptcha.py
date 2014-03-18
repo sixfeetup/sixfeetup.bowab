@@ -23,7 +23,6 @@ class RecaptchaWidget(CheckedInputWidget):
     def serialize(self, field, cstruct, readonly=False):
         if cstruct in (null, None):
             cstruct = ''
-        confirm = getattr(field, 'confirm', '')
         template = readonly and self.readonly_template or self.template
         return field.renderer(template, field=field, cstruct=cstruct,
                               public_key=self.public_key,
