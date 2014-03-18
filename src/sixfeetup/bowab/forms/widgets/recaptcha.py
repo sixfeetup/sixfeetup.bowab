@@ -57,7 +57,7 @@ class RecaptchaWidget(CheckedInputWidget):
             if reason == 'incorrect-captcha-sol':
                 reason = "Incorrect solution"
             raise Invalid(field.schema, reason.replace('\\n', ' ').strip("'"))
-        return pstruct
+        return valid
 
 
 @colander.deferred
