@@ -13,7 +13,15 @@ Base = declarative_base()
 
 def init_sa(config):
     settings = config.registry.settings
+
+    pc_name = settings.pop('sqlalchemy.poolclass', '')
+    if pc_name:
+        resolver = DottedNameResolver()
+        pool_class = resolver.maybe_resolve(pc_name)
+        settings['sqlalchemy.poolclass'] = pool_class
+
     engine = engine_from_config(settings, 'sqlalchemy.')
+
     db_session = get_db_session(None, settings)
     db_session.configure(bind=engine)
     model_paths = config.registry.setdefault('bowab.models', set())
