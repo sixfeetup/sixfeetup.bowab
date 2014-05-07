@@ -1,4 +1,5 @@
 from setuptools import setup, find_packages
+import sys
 
 version = '0.10'
 
@@ -12,6 +13,22 @@ long_description = (
     + '\n' +
     open('CHANGES.rst').read()
     + '\n')
+
+install_requires = [
+    'setuptools',
+    'pyramid',
+    'deform',
+    'colander',
+    'requests',
+    'SQLAlchemy',
+    'alembic',
+    'gaq_hub',
+    # -*- Extra requirements: -*-
+]
+if '__pypy__' in sys.builtin_module_names:
+        install_requires.append('psycopg2cffi')
+else:
+        install_requires.append('psycopg2')]
 
 setup(
     name='sixfeetup.bowab',
@@ -33,18 +50,7 @@ setup(
     namespace_packages=['sixfeetup'],
     include_package_data=True,
     zip_safe=False,
-    install_requires=[
-        'setuptools',
-        'pyramid',
-        'deform',
-        'colander',
-        'requests',
-        'SQLAlchemy',
-        'psycopg2',
-        'alembic',
-        'gaq_hub',
-        # -*- Extra requirements: -*-
-    ],
+    install_requires=install_requires,
     tests_require=['nose', 'coverage'],
     test_suite="nose.collector",
     extras_require={'test': ['coverage', 'mock']},
