@@ -1,3 +1,5 @@
+import sys
+
 from pyramid.path import DottedNameResolver
 
 from sqlalchemy import engine_from_config
@@ -27,6 +29,11 @@ def init_sa(config):
     model_paths = config.registry.setdefault('bowab.models', set())
     for emp in model_paths:
         config.scan(emp)
+
+    if '__pypy__' in sys.builtin_module_names:
+        from psycopg2cffi import compat
+        compat.register()
+
     return db_session
 
 
