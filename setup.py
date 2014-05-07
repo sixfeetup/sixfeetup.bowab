@@ -26,9 +26,9 @@ install_requires = [
     # -*- Extra requirements: -*-
 ]
 if '__pypy__' in sys.builtin_module_names:
-        install_requires.append('psycopg2cffi')
+    install_requires.append('psycopg2cffi')
 else:
-        install_requires.append('psycopg2')]
+    install_requires.append('psycopg2')
 
 setup(
     name='sixfeetup.bowab',
