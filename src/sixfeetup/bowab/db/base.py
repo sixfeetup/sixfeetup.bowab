@@ -24,6 +24,7 @@ def init_sa(config, app_name=None):
 
     cargs = {}
     if app_name is not None:
+        # http://stackoverflow.com/a/15691283
         cargs["application_name"] = app_name
     engine = engine_from_config(settings, 'sqlalchemy.',
                                 connect_args=cargs)
