@@ -13,7 +13,7 @@ DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 Base = declarative_base()
 
 
-def init_sa(config, app_name=None):
+def init_sa(config, **connect_kwargs):
     settings = config.registry.settings
 
     pc_name = settings.pop('sqlalchemy.poolclass', '')
@@ -22,12 +22,9 @@ def init_sa(config, app_name=None):
         pool_class = resolver.maybe_resolve(pc_name)
         settings['sqlalchemy.poolclass'] = pool_class
 
-    cargs = {}
-    if app_name is not None:
-        # http://stackoverflow.com/a/15691283
-        cargs["application_name"] = app_name
+    # http://stackoverflow.com/a/15691283
     engine = engine_from_config(settings, 'sqlalchemy.',
-                                connect_args=cargs)
+                                connect_args=connect_kwargs)
 
     db_session = get_db_session(None, settings)
     db_session.configure(bind=engine)
