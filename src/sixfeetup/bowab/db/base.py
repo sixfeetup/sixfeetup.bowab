@@ -22,13 +22,11 @@ def init_sa(config, app_name=None):
         pool_class = resolver.maybe_resolve(pc_name)
         settings['sqlalchemy.poolclass'] = pool_class
 
-    if app_name is None:
-        engine = engine_from_config(settings, 'sqlalchemy.')
-    else:
-        # http://stackoverflow.com/a/15691283
-        cargs = {"application_name": app_name}
-        engine = engine_from_config(settings, 'sqlalchemy.',
-                                    connect_args=cargs)
+    cargs = {}
+    if app_name is not None:
+        cargs["application_name"] = app_name
+    engine = engine_from_config(settings, 'sqlalchemy.',
+                                connect_args=cargs)
 
     db_session = get_db_session(None, settings)
     db_session.configure(bind=engine)
