@@ -1,4 +1,5 @@
 import colander
+import json
 from colander import null
 from colander import Invalid
 
@@ -10,7 +11,7 @@ import requests
 class RecaptchaWidget(CheckedInputWidget):
     template = 'sixfeetup.bowab:templates/widgets/recaptcha.pt'
     requirements = ()
-    url = "https://www.google.com/recaptcha/api/verify"
+    url = "https://www.google.com/recaptcha/api/siteverify"
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request')
@@ -31,17 +32,13 @@ class RecaptchaWidget(CheckedInputWidget):
     def deserialize(self, field, pstruct):
         if pstruct is null:
             return null
-        challenge = pstruct.get('recaptcha_challenge_field') or ''
-        response = pstruct.get('recaptcha_response_field') or ''
+        response = pstruct.get('g-recaptcha-response') or ''
         if not response:
             raise Invalid(field.schema, 'No input')
-        if not challenge:
-            raise Invalid(field.schema, 'Missing challenge')
         remoteip = self.request.remote_addr
-        data = dict(privatekey=self.private_key,
-                    remoteip=remoteip,
-                    challenge=challenge,
-                    response=response)
+        data = dict(secret=self.private_key,
+                    response=response,
+                    remoteip=remoteip)
         try:
             resp = requests.post(self.url, data=data, timeout=10)
         except (requests.exceptions.RequestException,), err:
@@ -52,12 +49,13 @@ class RecaptchaWidget(CheckedInputWidget):
             raise Invalid(field.schema,
                           "There was an error talking to the recaptcha \
                           server{0}".format(resp['status']))
-        valid, reason = resp.text.split('\n')
-        if not valid == 'true':
-            if reason == 'incorrect-captcha-sol':
-                reason = "Incorrect solution"
-            raise Invalid(field.schema, reason.replace('\\n', ' ').strip("'"))
-        return valid
+        resp_info = json.loads(resp.text)
+        if not resp_info['success']:
+            reason = ''
+            if 'error-codes' in resp_info:
+                reason = resp_info['error-codes']
+            raise Invalid(field.schema, ", ".join(reason))
+        return 'True'
 
 
 @colander.deferred
