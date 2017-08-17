@@ -1,6 +1,8 @@
+from __future__ import absolute_import
 from pyramid.response import Response
 from pyramid.path import DottedNameResolver
 from sixfeetup.bowab.api import TemplateAPI
+import six
 
 
 def get_api_class(registry):
@@ -27,7 +29,7 @@ def register_api(event):
         return
     api_class = get_api_class(event['request'].registry)
     if isinstance(event.rendering_val, Response) or \
-       isinstance(event.rendering_val, basestring):
+       isinstance(event.rendering_val, six.string_types):
         event['api'] = api_class(event['request'], {})
     else:
         event['api'] = api_class(event['request'], event.rendering_val)

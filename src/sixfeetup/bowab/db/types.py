@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import codecs
 from json import loads
 
@@ -19,7 +20,7 @@ class CIText(types.TypeDecorator):
     def compare_values(self, x, y):
         try:
             return x.lower() == y.lower()
-        except (AttributeError,), err:
+        except (AttributeError,) as err:
             return False
 
     def copy(self):

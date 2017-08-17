@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from deform.widget import ResourceRegistry
 from deform.widget import TextInputWidget
 

@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import colander
 import json
 from colander import null
@@ -41,7 +42,7 @@ class RecaptchaWidget(CheckedInputWidget):
                     remoteip=remoteip)
         try:
             resp = requests.post(self.url, data=data, timeout=10)
-        except (requests.exceptions.RequestException,), err:
+        except (requests.exceptions.RequestException,) as err:
             raise Invalid(field.schema,
                           "There was an error talking to the recaptcha \
                           server {err}".format(err=err))

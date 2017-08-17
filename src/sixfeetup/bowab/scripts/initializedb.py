@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+from __future__ import print_function
 import os
 import sys
 
@@ -12,8 +14,8 @@ from sixfeetup.bowab.db import Base, init_sa
 
 def usage(argv):
     cmd = os.path.basename(argv[0])
-    print('usage %s <config_uri>\n'
-          '(example: "%s development.ini")' % (cmd, cmd))
+    print(('usage %s <config_uri>\n'
+          '(example: "%s development.ini")' % (cmd, cmd)))
     sys.exit(1)
 
 

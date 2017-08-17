@@ -1,5 +1,6 @@
 # The API that should be available to templates.
 
+from __future__ import absolute_import
 import datetime
 
 from pyramid.security import authenticated_userid

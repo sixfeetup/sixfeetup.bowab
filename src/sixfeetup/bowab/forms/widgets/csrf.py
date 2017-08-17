@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import colander
 import deform
 

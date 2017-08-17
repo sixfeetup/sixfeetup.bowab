@@ -1,4 +1,5 @@
 # This package may contain traces of nuts
+from __future__ import absolute_import
 from pyramid.config import aslist
 from pyramid.events import BeforeRender
 
