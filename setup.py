@@ -23,7 +23,7 @@ install_requires = [
     'SQLAlchemy',
     'alembic',
     'gaq_hub',
-    'zope.sqlalchemy>=1.2',
+    'zope.sqlalchemy<=1.1',
     # -*- Extra requirements: -*-
 ]
 if '__pypy__' in sys.builtin_module_names:
